@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('bands')->group(function () {
+    Route::get('/', [BandController::class, 'getAll']);
+    Route::post('/', [BandController::class, 'store']);
+    Route::get('/gender/{gender}', [BandController::class, 'getBandsByGender']);
+    Route::get('/{id}', [BandController::class, 'getById']);
 });
